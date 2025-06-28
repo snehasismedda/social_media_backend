@@ -35,6 +35,9 @@ app.use("/api/likes", likeRoutes);
 app.get("/health", (req, res) => {
 	res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
 });
+app.get("/", (req, res) => {
+	res.status(200).send("Welcome to the Social Media API!");
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
