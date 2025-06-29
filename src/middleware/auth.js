@@ -35,21 +35,20 @@ const authenticateToken = async (req, res, next) => {
 const optionalAuth = async (req, res, next) => {
 	try {
 		const authHeader = req.headers["authorization"];
-
-		if (authHeader) {
-			const decoded = verifyToken(authHeader);
+		if (authHeader && authHeader.startsWith("Bearer ")) {
+			const token = authHeader.split(" ")[1];
+			const decoded = verifyToken(token); 
 			const user = await getUserById(decoded.userId);
 			if (user) {
 				req.user = user;
 			}
 		}
-
 		next();
 	} catch (error) {
-		// Ignore auth errors for optional auth
 		next();
 	}
 };
+
 
 module.exports = {
 	authenticateToken,

@@ -161,6 +161,37 @@
 					"response": []
 				},
 				{
+					"name": "Get Post by UserId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/posts/user/:user_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"user",
+								":user_id"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Post by ID",
 					"request": {
 						"method": "GET",
@@ -178,6 +209,71 @@
 							"variable": [
 								{
 									"key": "postId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Content Feed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/posts/feed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"feed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is my new edited post\",\r\n  \"media_url\": \"https://example.com/image.jpg\",\r\n  \"comments_enabled\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/posts/:post_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								":post_id"
+							],
+							"variable": [
+								{
+									"key": "post_id",
 									"value": "1"
 								}
 							]
@@ -254,7 +350,7 @@
 							"variable": [
 								{
 									"key": "postId",
-									"value": "4"
+									"value": "1"
 								}
 							]
 						}
@@ -294,38 +390,7 @@
 							"variable": [
 								{
 									"key": "commentId",
-									"value": "7"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Comment",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/comments/:commentId",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"comments",
-								":commentId"
-							],
-							"variable": [
-								{
-									"key": "commentId",
-									"value": "7"
+									"value": "1"
 								}
 							]
 						}
@@ -357,7 +422,38 @@
 							"variable": [
 								{
 									"key": "postId",
-									"value": "3"
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/comments/:commentId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "commentId",
+									"value": "1"
 								}
 							]
 						}
@@ -393,38 +489,7 @@
 							"variable": [
 								{
 									"key": "postId",
-									"value": "6"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Unlike a Post",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/likes/:postId",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"likes",
-								":postId"
-							],
-							"variable": [
-								{
-									"key": "postId",
-									"value": "6"
+									"value": "2"
 								}
 							]
 						}
@@ -456,7 +521,7 @@
 							"variable": [
 								{
 									"key": "postId",
-									"value": "6"
+									"value": "2"
 								}
 							]
 						}
@@ -488,6 +553,37 @@
 							"variable": [
 								{
 									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unlike a Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/likes/:postId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"likes",
+								":postId"
+							],
+							"variable": [
+								{
+									"key": "postId",
 									"value": "2"
 								}
 							]
@@ -525,39 +621,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "4"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Unfollow a User",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/api/users/unfollow/:userId",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"unfollow",
-								":userId"
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "4"
+									"value": "2"
 								}
 							]
 						}
@@ -601,14 +665,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/api/users/following",
+							"raw": "{{base_url}}/api/users/followers",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"users",
-								"following"
+								"followers"
 							]
 						}
 					},
@@ -639,6 +703,38 @@
 							"variable": [
 								{
 									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow a User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/unfollow/:userId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"unfollow",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
 									"value": "2"
 								}
 							]
@@ -664,7 +760,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"name\": \"test\" }",
+							"raw": "{ \"name\": \"testuser1\" }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -680,6 +776,124 @@
 								"api",
 								"users",
 								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schedule Post",
+			"item": [
+				{
+					"name": "Schedule a new post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is a scheduled post!\",\r\n  \"media_url\": \"https://example.com/image.jpg\",\r\n  \"scheduled_time\": \"2025-06-29T02:30:17.838Z\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/scheduler/posts/schedule",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"scheduler",
+								"posts",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Scheduled Posts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is a scheduled post!\",\r\n  \"media_url\": \"https://example.com/image.jpg\",\r\n  \"scheduled_time\": \"2025-06-29T10:30:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/scheduler/posts/scheduled",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"scheduler",
+								"posts",
+								"scheduled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Schedule Post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"This is a scheduled post!\",\r\n  \"media_url\": \"https://example.com/image.jpg\",\r\n  \"scheduled_time\": \"2025-06-29T10:30:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/scheduler/posts/scheduled/:id/publish",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"scheduler",
+								"posts",
+								"scheduled",
+								":id",
+								"publish"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
 							]
 						}
 					},
