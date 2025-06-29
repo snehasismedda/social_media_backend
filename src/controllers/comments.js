@@ -5,6 +5,7 @@ const {
   getPostComments,
   getCommentById,
 } = require("../models/comment");
+const { getPostById } = require('../models/post');
 const logger = require("../utils/logger");
 
 /**
@@ -78,18 +79,18 @@ const deleteCommentController = async (req, res) => {
     const { commentId } = req.params;
     const userId = req.user.id;
 
-    // Check if comment exists and belongs to user
+    // Check if comment exists, belongs to user, and is not already deleted
     const existing = await getCommentById(commentId);
     if (!existing || existing.user_id !== userId) {
       return res.status(403).json({ error: "Not authorized to delete this comment" });
     }
+    if (existing.is_deleted) {
+      return res.status(404).json({ error: "Comment not found or already deleted" });
+    }
 
     const deleted = await deleteComment(commentId, userId);
-    if(!deleted){
-      return res.status(404).json({error:"Comment not found"})
-    }
-    if (deleted.is_deleted) {
-      return res.status(404).json({ error: "Comment not found or already deleted" });
+    if (!deleted) {
+      return res.status(404).json({ error: "Comment not found" });
     }
 
     logger.verbose(`User ${userId} deleted comment ${commentId}`);
@@ -107,11 +108,18 @@ const deleteCommentController = async (req, res) => {
 /**
  * Get comments for a post (with pagination)
  */
+
 const getPostCommentsController = async (req, res) => {
   try {
     const { postId } = req.params;
     const limit = parseInt(req.query.limit, 10) || 20;
     const offset = parseInt(req.query.offset, 10) || 0;
+
+    // Check if the post exists and is not deleted
+    const post = await getPostById(postId);
+    if (!post || post.is_deleted) {
+      return res.status(404).json({ error: "Post not found" });
+    }
 
     const comments = await getPostComments(postId, limit, offset);
 
@@ -127,6 +135,7 @@ const getPostCommentsController = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 module.exports = {
   createComment: createCommentController,

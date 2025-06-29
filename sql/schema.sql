@@ -74,6 +74,18 @@ CREATE TABLE IF NOT EXISTS follows (
     UNIQUE (follower_id, following_id)  -- Prevent duplicate follows
 );
 
+CREATE TABLE scheduled_posts (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id),
+  content TEXT,
+  media_url VARCHAR,
+  scheduled_time TIMESTAMP NOT NULL,
+  status VARCHAR(20) DEFAULT 'pending', -- 'pending', 'published', 'cancelled'
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_likes_post_id ON likes(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_post_id ON comments(post_id);

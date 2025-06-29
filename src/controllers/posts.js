@@ -42,8 +42,13 @@ const create = async (req, res) => {
 const getById = async (req, res) => {
   try {
     const { post_id } = req.params;
+    const postIdInt = parseInt(post_id, 10);
 
-    const post = await getPostById(parseInt(post_id));
+    if (isNaN(postIdInt)) {
+      return res.status(400).json({ error: "Invalid post ID" });
+    }
+
+    const post = await getPostById(postIdInt);
 
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
@@ -56,18 +61,19 @@ const getById = async (req, res) => {
   }
 };
 
+
 /**
  * Get posts by a specific user
  */
 const getUserPosts = async (req, res) => {
   try {
-    const { user_id } = req.params;
+    const userId = req.user.id;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
 
-    const posts = await getPostsByUserId(parseInt(user_id), limit, offset);
-
+  
+    const posts = await getPostsByUserId(userId, limit, offset, false);
     res.json({
       posts,
       pagination: {
@@ -77,8 +83,8 @@ const getUserPosts = async (req, res) => {
       },
     });
   } catch (error) {
-    logger.critical("Get user posts error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    logger.critical('Get my non-deleted posts error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -87,12 +93,12 @@ const getUserPosts = async (req, res) => {
  */
 const getMyPosts = async (req, res) => {
   try {
-    const { user_id: userId } = req.params;
+    const userId = req.user.id;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
 
-    const posts = await getPostsByUserId(userId, limit, offset);
+    const posts = await getPostsByUserId(userId, limit, offset, false);
 
     res.json({
       posts,

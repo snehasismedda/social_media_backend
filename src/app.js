@@ -4,12 +4,15 @@ const helmet = require("helmet");
 require("dotenv").config();
 
 const logger = require("./utils/logger");
+const scheduleCron = require("./utils/scheduleCron");//
 const { connectDB } = require("./utils/database");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
 const likeRoutes= require("./routes/likes")
+const scheduleRoutes= require("./routes/schedule")
+
 /**
  * Express application setup and configuration
  */
@@ -30,6 +33,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
+app.use("/api/scheduler/posts", scheduleRoutes);
 
 // Health check endpoint
 app.get("/health", (req, res) => {

@@ -6,6 +6,21 @@ const { query } = require("../utils/database");
 
 // Create a new comment
 async function createComment(userId, postId, content) {
+  // First, check if the post exists and is not deleted
+  const postCheck = await query(
+    `SELECT id, is_deleted FROM posts WHERE id = $1`,
+    [postId]
+  );
+
+  if (postCheck.rowCount === 0) {
+    throw new Error("Post not found");
+  }
+
+  if (postCheck.rows[0].is_deleted) {
+    throw new Error("Cannot comment on a deleted post");
+  }
+
+  // If post is valid and not deleted, insert the comment
   const result = await query(
     `INSERT INTO comments (user_id, post_id, content) VALUES ($1, $2, $3) RETURNING *`,
     [userId, postId, content]

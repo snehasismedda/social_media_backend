@@ -16,6 +16,12 @@ const userLoginSchema = Joi.object({
 	password: Joi.string().required(),
 });
 
+const updatePostSchema = Joi.object({
+  content: Joi.string().min(1).max(1000).optional(),
+  media_url: Joi.string().uri().optional(),
+  comments_enabled: Joi.boolean().optional(),
+});
+
 const createPostSchema = Joi.object({
 	content: Joi.string().min(1).max(1000).required(),
 	media_url: Joi.string().uri().optional(),
@@ -47,5 +53,6 @@ module.exports = {
 	userRegistrationSchema,
 	userLoginSchema,
 	createPostSchema,
+	updatePostSchema,
 	validateRequest,
 };
